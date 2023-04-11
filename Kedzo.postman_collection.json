@@ -1,0 +1,312 @@
+{
+	"info": {
+		"_postman_id": "891a2b38-9dcc-477e-8cd8-6b44e70d7e8c",
+		"name": "RBA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26800018"
+	},
+	"item": [
+		{
+			"name": "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=Raiffeisen&srlimit=10&format=json&formatversion=2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//response code 200\r",
+							"pm.test(\"Status code je 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//response time manji od 5 sekundi\r",
+							"pm.test(\"Response time je manji od 5000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000)\r",
+							"});\r",
+							"\r",
+							"//response sadrži objekt 'pages'\r",
+							"pm.test(\"Response sadrži objekt pages\", function () {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody.pages).to.exist;\r",
+							"    //response ne sadrži objekt \"pages\"\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//neka od stranica sadrži key 'title' i vrijednost 'Raiffeisen Bank International'\r",
+							"pm.sendRequest(request, function (err, response) {\r",
+							"    var responseBody = response.json();\r",
+							"    var somePagesHaveExpectedTitle = true;\r",
+							"    for (var i = 0; i < responseBody.length; i++) {\r",
+							"        if (responseBody[i].title !== \"Raiffeisen Bank International\") {\r",
+							"            somePagesHaveExpectedTitle = false;\r",
+							"            break;\r",
+							"        }\r",
+							"    }\r",
+							"    pm.test(\"Neke od stranica sadrže key 'title' sa vrijednosti 'Raiffeisen Bank International'\", function () {\r",
+							"        pm.expect(somePagesHaveExpectedTitle).to.be.true;\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=Raiffeisen&srlimit=10&format=json&formatversion=2",
+					"protocol": "https",
+					"host": [
+						"en",
+						"wikipedia",
+						"org"
+					],
+					"path": [
+						"w",
+						"api.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "query"
+						},
+						{
+							"key": "list",
+							"value": "search"
+						},
+						{
+							"key": "srsearch",
+							"value": "Raiffeisen",
+							"description": "pojam"
+						},
+						{
+							"key": "srlimit",
+							"value": "10",
+							"description": "10 rezultata"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "formatversion",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://www.rba.hr/alati/tecajni-kalkulator?p_p_id=tecajKalkulator_WAR_calculatorsportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=calculateExchangeRate&p_p_cacheability=cacheLevelPage&p_p_col_id=column-4&p_p_col_count=2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "source",
+							"value": "FIRST",
+							"type": "text"
+						},
+						{
+							"key": "currency1Id",
+							"value": "826",
+							"description": "GBP",
+							"type": "text"
+						},
+						{
+							"key": "currency1Ammount",
+							"value": "40",
+							"description": "iznos",
+							"type": "text"
+						},
+						{
+							"key": "currency2Id",
+							"value": "978",
+							"description": "EUR",
+							"type": "text"
+						},
+						{
+							"key": "currency2Ammount",
+							"value": "109.1500",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "date",
+							"value": "07.04.2023",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "0",
+							"description": "Kupovni",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.rba.hr/alati/tecajni-kalkulator?p_p_id=tecajKalkulator_WAR_calculatorsportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=calculateExchangeRate&p_p_cacheability=cacheLevelPage&p_p_col_id=column-4&p_p_col_count=2",
+					"protocol": "https",
+					"host": [
+						"www",
+						"rba",
+						"hr"
+					],
+					"path": [
+						"alati",
+						"tecajni-kalkulator"
+					],
+					"query": [
+						{
+							"key": "p_p_id",
+							"value": "tecajKalkulator_WAR_calculatorsportlet"
+						},
+						{
+							"key": "p_p_lifecycle",
+							"value": "2"
+						},
+						{
+							"key": "p_p_state",
+							"value": "normal"
+						},
+						{
+							"key": "p_p_mode",
+							"value": "view"
+						},
+						{
+							"key": "p_p_resource_id",
+							"value": "calculateExchangeRate"
+						},
+						{
+							"key": "p_p_cacheability",
+							"value": "cacheLevelPage"
+						},
+						{
+							"key": "p_p_col_id",
+							"value": "column-4"
+						},
+						{
+							"key": "p_p_col_count",
+							"value": "2"
+						},
+						{
+							"key": "authorization",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://www.rba.hr/alati/tecajni-kalkulator?p_p_id=tecajKalkulator_WAR_calculatorsportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=calculateExchangeRate&p_p_cacheability=cacheLevelPage&p_p_col_id=column-4&p_p_col_count=2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "source",
+							"value": "FIRST",
+							"type": "text"
+						},
+						{
+							"key": "currency1Id",
+							"value": "840",
+							"description": "USD",
+							"type": "text"
+						},
+						{
+							"key": "currency1Ammount",
+							"value": "40",
+							"description": "Iznos",
+							"type": "text"
+						},
+						{
+							"key": "currency2Id",
+							"value": "978",
+							"description": "EUR",
+							"type": "text"
+						},
+						{
+							"key": "currency2Ammount",
+							"value": "109.1500",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "date",
+							"value": "07.04.2023",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "2",
+							"description": "Prodajni",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.rba.hr/alati/tecajni-kalkulator?p_p_id=tecajKalkulator_WAR_calculatorsportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=calculateExchangeRate&p_p_cacheability=cacheLevelPage&p_p_col_id=column-4&p_p_col_count=2",
+					"protocol": "https",
+					"host": [
+						"www",
+						"rba",
+						"hr"
+					],
+					"path": [
+						"alati",
+						"tecajni-kalkulator"
+					],
+					"query": [
+						{
+							"key": "p_p_id",
+							"value": "tecajKalkulator_WAR_calculatorsportlet"
+						},
+						{
+							"key": "p_p_lifecycle",
+							"value": "2"
+						},
+						{
+							"key": "p_p_state",
+							"value": "normal"
+						},
+						{
+							"key": "p_p_mode",
+							"value": "view"
+						},
+						{
+							"key": "p_p_resource_id",
+							"value": "calculateExchangeRate"
+						},
+						{
+							"key": "p_p_cacheability",
+							"value": "cacheLevelPage"
+						},
+						{
+							"key": "p_p_col_id",
+							"value": "column-4"
+						},
+						{
+							"key": "p_p_col_count",
+							"value": "2"
+						},
+						{
+							"key": "authorization",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
